@@ -1,4 +1,5 @@
 import { EUserPermissions } from "ee/constants/user-permissions";
+import { Plus, Shapes } from "lucide-react";
 
 export interface EmptyStateDetails {
   key: EmptyStateType;
@@ -83,6 +84,9 @@ export enum EmptyStateType {
   ISSUE_RELATION_EMPTY_STATE = "issue-relation-empty-state",
   ISSUE_COMMENT_EMPTY_STATE = "issue-comment-empty-state",
 
+  EPIC_RELATION_SEARCH_EMPTY_STATE = "epic-relation-search-empty-state",
+  EPIC_RELATION_EMPTY_STATE = "epic-relation-empty-state",
+
   NOTIFICATION_DETAIL_EMPTY_STATE = "notification-detail-empty-state",
   NOTIFICATION_ALL_EMPTY_STATE = "notification-all-empty-state",
   NOTIFICATION_MENTIONS_EMPTY_STATE = "notification-mentions-empty-state",
@@ -119,9 +123,14 @@ export enum EmptyStateType {
   TEAM_EMPTY_FILTER = "team-empty-filter",
   TEAM_VIEW = "team-view",
   TEAM_PAGE = "team-page",
+  // stickies
+  STICKIES = "stickies",
+  STICKIES_SEARCH = "stickies-search",
+  // home widgets
+  HOME_WIDGETS = "home-widgets",
 }
 
-const emptyStateDetails = {
+const emptyStateDetails: Record<EmptyStateType, EmptyStateDetails> = {
   // workspace
   [EmptyStateType.WORKSPACE_DASHBOARD]: {
     key: EmptyStateType.WORKSPACE_DASHBOARD,
@@ -639,7 +648,7 @@ const emptyStateDetails = {
   },
   [EmptyStateType.ISSUE_RELATION_SEARCH_EMPTY_STATE]: {
     key: EmptyStateType.ISSUE_RELATION_SEARCH_EMPTY_STATE,
-    title: "No maching issues found",
+    title: "No matching issues found",
     path: "/empty-state/search/search",
   },
   [EmptyStateType.ISSUE_RELATION_EMPTY_STATE]: {
@@ -647,6 +656,18 @@ const emptyStateDetails = {
     title: "No issues found",
     path: "/empty-state/search/issues",
   },
+
+  [EmptyStateType.EPIC_RELATION_SEARCH_EMPTY_STATE]: {
+    key: EmptyStateType.EPIC_RELATION_SEARCH_EMPTY_STATE,
+    title: "No matching epics found",
+    path: "/empty-state/search/search",
+  },
+  [EmptyStateType.EPIC_RELATION_EMPTY_STATE]: {
+    key: EmptyStateType.EPIC_RELATION_EMPTY_STATE,
+    title: "No epics found",
+    path: "/empty-state/search/issues",
+  },
+
   [EmptyStateType.ISSUE_COMMENT_EMPTY_STATE]: {
     key: EmptyStateType.ISSUE_COMMENT_EMPTY_STATE,
     title: "No comments yet",
@@ -896,6 +917,43 @@ const emptyStateDetails = {
     description:
       "Write a note, a doc, or a full knowledge base. Get Galileo, Plane’s AI assistant, to help you get started. Pages are thoughts potting space in Plane. Take down meeting notes, format them easily, embed issues, lay them out using a library of components, and keep them all in your project’s context. To make short work of any doc, invoke Galileo, Plane’s AI, with a shortcut or the click of a button.",
     path: "/empty-state/onboarding/pages",
+  },
+  [EmptyStateType.STICKIES]: {
+    key: EmptyStateType.STICKIES,
+    title: "Stickies are quick notes and to-dos you take down on the fly.",
+    description:
+      "Capture your thoughts and ideas effortlessly by creating stickies that you can access anytime and from anywhere.",
+    path: "/empty-state/stickies/stickies",
+    primaryButton: {
+      icon: <Plus className="size-4" />,
+      text: "Add sticky",
+    },
+    access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER, EUserPermissions.GUEST],
+    accessType: "workspace",
+  },
+  [EmptyStateType.STICKIES_SEARCH]: {
+    key: EmptyStateType.STICKIES_SEARCH,
+    title: "That doesn't match any of your stickies.",
+    description: "Try a different term or let us know\nif you are sure your search is right. ",
+    path: "/empty-state/stickies/stickies-search",
+    primaryButton: {
+      icon: <Plus className="size-4" />,
+      text: "Add sticky",
+    },
+    access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER, EUserPermissions.GUEST],
+    accessType: "workspace",
+  },
+  [EmptyStateType.HOME_WIDGETS]: {
+    key: EmptyStateType.HOME_WIDGETS,
+    title: "It's Quiet Without Widgets, Turn Them On",
+    description: "It looks like all your widgets are turned off. Enable them\nnow to enhance your experience!",
+    path: "/empty-state/dashboard/widgets",
+    primaryButton: {
+      icon: <Shapes className="size-4" />,
+      text: "Manage widgets",
+    },
+    access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER, EUserPermissions.GUEST],
+    accessType: "workspace",
   },
 } as const;
 
